@@ -42,7 +42,7 @@ struct Card {
 public:
     Card();
     
-    Card(string suit_, string rank_) : suit(suit_), rank(rank_);
+    Card(string suit_, string rank_);
     
     string getSuit() const;
     
@@ -140,23 +140,11 @@ public:
     
     void preFlopActivity();
     
-    void flop() {
-        cout << "Board: " << endl;
-        for (int i = 0; i < 3; i++) {
-            board.push_back(Deck.getCard());
-            cout << board[i] << endl;
-        }
-        cout << endl;
-        //only do the betting round if 2 people in hand that aren't all in
-        if (numPlayersInHand > 1) {
-            betInRound = false;
-            currentlyOn = dealer;
-            next();
-            bettingRound();
-        }
-    }
+    void flop();
     
     void turn();
+    
+    void river();
     
 private:
     player* players[10];

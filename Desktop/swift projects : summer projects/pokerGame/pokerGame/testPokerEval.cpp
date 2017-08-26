@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <cassert>
-#include "pokerGame.h"
+/*#include "pokerGame.h"
 
 void pairTest();
 
@@ -22,4 +22,4 @@ void pairTest() {
     pairHand.first = Card("spades", "four");
     pairHand.second = Card("clubs", "four");
     
-}
+}*/
