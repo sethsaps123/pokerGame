@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 Card::Card() {
     suit = suits[0];
     rank = ranksOfCards[0];
@@ -802,34 +801,34 @@ pair<int, int> handEval(const Hand &hand, vector<Card> board) {
         sort(multiplesOf.begin(), multiplesOf.end(), compareMultiplesOf);
         //figure out if boat, quads, trips, two pair, or one pair
         //checks quads
-        if (multiplesOf.back().second == 4) {
-            bestHand = {7, multiplesOf.back().first};
+        if (multiplesOf.front().second == 4) {
+            bestHand = {7, multiplesOf.front().first};
             isQuads = true;
         }
         //checks trips and full house
-        else if (multiplesOf.back().second == 3) {
+        else if (multiplesOf.front().second == 3) {
             //check for full boat
             if (multiplesOf.size() > 1) {
-                for (int i = (int)(multiplesOf.size()) - 2; i >= 0; --i) {
-                    if (multiplesOf[i].second == 2) {
-                        bestHand = {6, multiplesOf.back().first};
+                for (int i = 1; i < multiplesOf.size(); i++) {
+                    if (multiplesOf[i].second >= 2) {
+                        bestHand = {6, multiplesOf.front().first};
                         isFullHouse = true;
                         break;
                     }
                 }
             }
             else if (!isFullHouse) {
-                bestHand = {3, multiplesOf.back().first};
+                bestHand = {3, multiplesOf.front().first};
             }
         }
         //checks for pair and two pair
-        else if (multiplesOf.back().second == 2) {
+        else if (multiplesOf.front().second == 2) {
             //check for one pair vs two pair
             if (multiplesOf.size() > 1) {
-                bestHand = {2, multiplesOf.back().first};
+                bestHand = {2, multiplesOf.front().first};
             }
             else {
-                bestHand = {1, multiplesOf.back().first};
+                bestHand = {1, multiplesOf.front().first};
             }
         }
     }
@@ -858,12 +857,12 @@ pair<int, int> handEval(const Hand &hand, vector<Card> board) {
                 ++straightCounter;
             }
         }
-        if (straightCounter == 5) {
+        if (straightCounter == 4) {
             isStraight = true;
             //hand is only better if not already have quads
             if (!isQuads && !isFullHouse) {
                 bestHand.first = 4;
-                bestHand.second = 4 + startingCounter;
+                bestHand.second = tempBoard[4 + startingCounter].getRankNum();
             }
         }
         ++startingCounter;
@@ -872,20 +871,20 @@ pair<int, int> handEval(const Hand &hand, vector<Card> board) {
     //check for wheel straight if user does not already have a straight
     if (!isStraight && (tempBoard.end() - 1)->getRankNum() == 13) {
         auto ptr = tempBoard.begin();
-        int wheelStraightNum = 2;
+        int wheelStraightNum = 1;
         //while not at the end of board and board num is equal to straight num
         //and the wheelStraightNum less than 6 go to the next number
         while (ptr != tempBoard.end() && (wheelStraightNum == ptr->getRankNum())
-               && wheelStraightNum < 6) {
+               && wheelStraightNum < 5) {
             ++wheelStraightNum;
             ++ptr;
         }
-        if (wheelStraightNum == 6) {
+        if (wheelStraightNum == 5) {
             isStraight = true;
             //hand only better if don't already have quads
             if (!isQuads && !isFullHouse) {
                 bestHand.first = 4;
-                bestHand.second = 5;
+                bestHand.second = 4;
             }
         }
     }
@@ -916,33 +915,26 @@ pair<int, int> handEval(const Hand &hand, vector<Card> board) {
     
     //check for straight flush
     if (isStraight && isFlush) {
-        int straightFlushCounter = 1;
-        int currentStraightFlushRank = board.back().getRankNum();
         straightFlushCompHelper flushHelp = straightFlushCompHelper(flushSuit);
         sort(board.begin(), board.end(), flushHelp);
-        auto it = board.end() - 1;
-        auto it2 = board.end() - 2;
-        //start at end and compare with the one before it, leaves out the first
-        //and keep going until it2 is not of the flush suit and not a straight flush
-        while (it != board.begin() && (it2->getSuit() == flushSuit) && straightFlushCounter != 5) {
-            if (it->getRankNum() == it2->getRankNum() + 1) {
-                ++straightFlushCounter;
+        int counter = 0;
+        while (board[counter + 4].getSuit() == flushSuit) {
+            int straightFlushCounter = 1;
+            for (int i = 0; i < 4; i++) {
+                if (board[i].getRankNum() == board[i+1].getRankNum() + 1) {
+                    ++straightFlushCounter;
+                }
             }
-            else {
-                //resets top card of straight to the next card and counter to 1
-                currentStraightFlushRank = it2->getRankNum();
-                straightFlushCounter = 1;
+            if (straightFlushCounter == 5) {
+                bestHand = {8, board[counter].getRankNum()};
             }
-        }
-        //if the user has a straight flush
-        if (straightFlushCounter == 5) {
-            bestHand = {8, currentStraightFlushRank};
+            ++counter;
         }
     }
     
     return bestHand;
 }
-
+/*
 int main(int argc, const char **argv) {
     int playerNameCounter = 0;
     table table1 = table();
@@ -957,3 +949,4 @@ int main(int argc, const char **argv) {
     endGame(allPlayers);
     return 0;
 }
+*/

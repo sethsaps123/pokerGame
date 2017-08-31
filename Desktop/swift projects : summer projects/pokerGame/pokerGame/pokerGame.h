@@ -1,3 +1,5 @@
+#ifndef POKERGAME_H
+#define POKERGAME_H
 //
 //  pokerGame.h
 //  pokerGame
@@ -38,7 +40,7 @@ const string ranksOfCards[13] = {"two", "three", "four", "five", "six",
 
 const string suits[4] = {"clubs", "spades", "hearts", "diamonds"};
 
-struct Card {
+class Card {
 public:
     Card();
     
@@ -71,7 +73,6 @@ private:
 };
 
 struct Hand {
-public:
     Card first;
     Card second;
 };
@@ -182,19 +183,10 @@ struct straightFlushCompHelper {
     string suit;
 };
 
-string handRanks[] = {
-    "high card",
-    "1 pair",
-    "2 pair",
-    "three of a kind",
-    "straight",
-    "flush",
-    "full house",
-    "four of a kind",
-    "straight flush"
-};
 
 //first int returns rank of hand, second int is rank of card relative to that hand rank
 //0 is high card, 1 is pair, 2 is 2 pair, 3 is trips
 //4 is straight, 5 is flush, 6 is boat, 7 is quads, 8 is straight flush
 pair<int, int> handEval(const Hand &hand, vector<Card> board);
+
+#endif
