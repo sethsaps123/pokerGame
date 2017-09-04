@@ -16,6 +16,7 @@
 #include <deque>
 #include <cassert>
 #include <unordered_map>
+#include <queue>
 
 using namespace std;
 
@@ -52,6 +53,8 @@ public:
     
     int getRankNum() const;
     
+    
+    
 private:
     string suit;
     string rank;
@@ -87,6 +90,7 @@ public:
     int stackSize;
     Hand hand;
     int amtBetTotal;
+    int rankAfterHandFinishes;
 };
 
 bool operator >(const Card &card1, const Card &card2);
@@ -95,10 +99,11 @@ bool operator <(const Card &card1, const Card &card2);
 
 bool operator ==(const Card &card1, const Card &card2);
 
-
 class table {
 public:
     table();
+    
+    void playTable();
     
     void playHand();
     
@@ -107,7 +112,7 @@ public:
     
     void closerCompareOfHands(int positionOfP1, int positionOfP2);
     
-    int findWinner();
+    void findWinner();
     
     void chooseDealer();
     
@@ -147,6 +152,8 @@ public:
     
     void river();
     
+    void splitPotBasedOnRank();
+    
 private:
     player* players[10];
     bool inHand[10];
@@ -166,7 +173,11 @@ private:
     int initialBetThisRound;
     vector<Card> board;
     pair<int, int> handsThisRound[10];
-    int rankAfterHandFinishes[10];
+    //int rankAfterHandFinishes[10];
+};
+
+struct playerRankComparator {
+    bool operator()(const player* player1, const player* player2);
 };
 
 void endGame(vector<player*> &allPlayers);
@@ -188,5 +199,7 @@ struct straightFlushCompHelper {
 //0 is high card, 1 is pair, 2 is 2 pair, 3 is trips
 //4 is straight, 5 is flush, 6 is boat, 7 is quads, 8 is straight flush
 pair<int, int> handEval(const Hand &hand, vector<Card> board);
+
+const static deckOfCards freshDeck = deckOfCards();
 
 #endif

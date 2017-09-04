@@ -25,7 +25,7 @@ pair<int, int> multiPairTest(const Hand &pairHand);
 pair<int, int> straightTest(const Hand& straightHand);
 pair<int, int> wheelStraight(const Hand &straightHand);
 pair<int, int> fullHouseTest(const Hand &fullHouseHand);
-
+/*
 int main() {
     Hand pairHand = Hand();
     pairHand.first = Card("spades", "four");
@@ -120,7 +120,7 @@ int main() {
     //should print full house, 2
     
     return 0;
-}
+}*/
 
 pair<int, int> pairTest(const Hand &pairHand) {
     //test simple pair hand/board
