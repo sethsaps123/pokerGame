@@ -111,6 +111,7 @@ void table::playTable() {
                 inHand[i] = false;
             }
         }
+        
         nextDeal();
     }
     for (int i = 0; i < 10; i++) {
@@ -542,14 +543,14 @@ void table::next() {
 void table::nextDeal() {
     if (dealer == 9) {
         dealer = 0;
-        while (!(inHand[dealer]) || !players[dealer]) {
+        while (!players[dealer]) {
             ++dealer;
         }
         return;
     }
     else {
         ++dealer;
-        if (inHand[dealer]) return;
+        if (players[dealer]) return;
         else{
             nextDeal();
         }
@@ -609,7 +610,9 @@ void table::allIn() {
     pot += players[currentlyOn]->stackSize;
     players[currentlyOn]->amtBetTotal += players[currentlyOn]->stackSize;
     players[currentlyOn]->stackSize = 0;
-    maxBetTotal = players[currentlyOn]->amtBetTotal;
+    if (players[currentlyOn]->amtBetTotal > maxBetTotal) {
+        maxBetTotal = players[currentlyOn]->amtBetTotal;
+    }
 }
 
 void table::raiseAmount() {
@@ -788,7 +791,7 @@ void table::preFlopActivity() {
         players[currentlyOn]->amtBetTotal += bigBlind;
         pot += bigBlind;
         maxBetTotal = bigBlind;
-        cout << players[currentlyOn]->name << " posts the big blind." << endl;
+        cout << players[currentlyOn]->name << " posts the big blind." << endl << endl;
     }
     initialBetThisRound = bigBlind;
     next();
