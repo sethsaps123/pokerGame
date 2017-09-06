@@ -1,20 +1,43 @@
 Bugs Noticed toDo:
+    fix the option for the big blind so that they have the option if no one raises
+
+    check if only one person every time you move around the circle,
+    not only between when cards come out. could be check in next()
+    to see if next returns the starting person
 
     min raise amount on preflop action must be larger than the first raise,
     or if no first raise then the size of the small blind. Right now allows
     for a reraise to be the size of the small blind not at least the
     size of the first raise
 
-    closerCompareOfHands function needs testing, noticed bug for high card
-    in closer compare
+    better randomize for choosing dealer and shuffling deck
 
 Moving Forward toDo:
 
-    polymorphic players need to be allowed so players need functions such as
-    call, fold, allin, etc to be under player class, not in table class
+    begin work on simple bot. need a way to share info with the bot
+    without player being able to use the table class. need way to share
+    the info every time the player must make a decision. can use templated
+    types
 
-    begin work on simple bot
+    multi table tourney, combining tables (concurrent/parallel programming?)
 
-    multi table tourney, combining tables (concurrent programming?)
+    create database for users profiles / login
 
-    create database for users
+Info Bot Needs:
+
+    Hand Eval for less than 7 cards
+
+    Num Players In Hand folded/all in/alive
+
+    players stack sizes/positions
+
+    bot position
+
+    bot hand
+
+    pot size
+
+    board
+
+    bets/raises/reraises
+

@@ -10,30 +10,6 @@
 
 using namespace std;
 
-Card::Card() {
-    suit = suits[0];
-    rank = ranksOfCards[0];
-}
-Card::Card(string suit_, string rank_) : suit(suit_), rank(rank_) {}
-
-string Card::getSuit() const {
-    return suit;
-}
-string Card::getRank() const {
-    return rank;
-}
-
-int Card::getRankNum() const {
-    int num = cardName.find(rank)->second;
-    return num;
-}
-
-//to overload << to write out a card
-ostream& operator <<(ostream& os, const Card &card) {
-    os << card.getRank() << " of " << card.getSuit();
-    return os;
-}
-
 deckOfCards::deckOfCards() {
     for (int i = 0; i < 13; i++) {
         for (int j = 0; j < 4; j++) {
@@ -59,9 +35,11 @@ Card deckOfCards::getCard() {
     return chosen;
 }
 
-
+//made player polymorphic so got rid of this
+/*
 player::player() : name("unkown"), stackSize(1500), amtBetTotal(0){ }
 player::player(string name_) : name(name_), stackSize(1500), amtBetTotal(0) {}
+ */
 
 bool operator >(const Card &card1, const Card &card2) {
     if ((cardName.find(card1.getRank())->second >
@@ -105,7 +83,7 @@ void table::playTable() {
         playHand();
         //remove players who went broke at end of hand
         for (int i = 0; i < 10; i++) {
-            if (players[i] && players[i]->stackSize == 0) {
+            if (players[i] && players[i]->getStackSize() == 0) {
                 players[i] = nullptr;
                 --numPlayers;
                 inHand[i] = false;
@@ -116,7 +94,7 @@ void table::playTable() {
     }
     for (int i = 0; i < 10; i++) {
         if (players[i]) {
-            cout << players[i]->name << " wins the game!" << endl << endl;
+            cout << players[i]->getName() << " wins the game!" << endl << endl;
         }
     }
 }
@@ -141,7 +119,7 @@ void table::playHand() {
     
     for (int i = 0; i < 10; i++) {
         if (players[i]) {
-            cout << players[i]->name << " has " << players[i]->stackSize << endl;
+            cout << players[i]->getName() << " has " << players[i]->getStackSize() << endl;
         }
     }
     cout << "Pot: " << pot << endl << endl;
@@ -149,8 +127,8 @@ void table::playHand() {
     
     for (int i = 0; i < 10; i++) {
         if (inHand[i]) {
-            cout << players[i]->name << "'s hand: " << endl
-            << players[i]->hand.first << endl << players[i]->hand.second
+            cout << players[i]->getName() << "'s hand: " << endl
+            << players[i]->getHandFirst() << endl << players[i]->getHandSecond()
             << endl << endl;
         }
     }
@@ -159,7 +137,7 @@ void table::playHand() {
     
     for (int i = 0; i < 10; i++) {
         if (players[i]) {
-            cout << players[i]->name << " 's stack: " << players[i]->stackSize << endl;
+            cout << players[i]->getName() << " 's stack: " << players[i]->getStackSize() << endl;
         }
     }
 }
@@ -176,15 +154,15 @@ void table::splitPotBasedOnRank() {
     
     //check to see if everyone else folded
     if ((int)(tempPlayers.size()) - numPlayersFolded == 1) {
-        (tempPlayers.front())->stackSize += pot;
+        (tempPlayers.front())->setStackSize(pot + (tempPlayers.front())->getStackSize());
         pot = 0;
-        cout << (tempPlayers.front())->name << " wins!" << endl << endl;
+        cout << (tempPlayers.front())->getName() << " wins!" << endl << endl;
         return;
     }
     //sort based on playerRankComparator. inHand and nullptr taken care of already
     sort(tempPlayers.begin(), tempPlayers.end(), playerRankComparator());
     
-    cout << (tempPlayers.front())->name << " wins!" << endl << endl;
+    cout << (tempPlayers.front())->getName() << " wins!" << endl << endl;
     
     int splitNumWays = 1;
     
@@ -192,7 +170,7 @@ void table::splitPotBasedOnRank() {
         //check to see if there will be a split pot
         for (int i = 0; i < tempPlayers.size(); i++) {
             if ((i != (int)(tempPlayers.size()) - 1) &&
-                tempPlayers[i]->rankAfterHandFinishes == tempPlayers[i + 1]->rankAfterHandFinishes) {
+                tempPlayers[i]->getRankAfterHandFinishes() == tempPlayers[i + 1]->getRankAfterHandFinishes()) {
                 ++splitNumWays;
             }
             else {
@@ -202,28 +180,28 @@ void table::splitPotBasedOnRank() {
         //subtract the num of front person's from all players. add to player in front
         //if tied, subtract then divide then add to x players that split
         int total = 0;
-        int amountToTake = tempPlayers[0]->amtBetTotal;
+        int amountToTake = tempPlayers[0]->getAmtBetTotal();
         for (int i = 0; i < tempPlayers.size(); i++) {
             //if player doesn't have the amtBetTotal of first, take what they have
-            if (tempPlayers[i]->amtBetTotal < amountToTake) {
-                total += tempPlayers[i]->amtBetTotal;
-                pot -= tempPlayers[i]->amtBetTotal;
-                tempPlayers[i]->amtBetTotal = 0;
+            if (tempPlayers[i]->getAmtBetTotal() < amountToTake) {
+                total += tempPlayers[i]->getAmtBetTotal();
+                pot -= tempPlayers[i]->getAmtBetTotal();
+                tempPlayers[i]->setAmtBetTotal(0);
             }
             //else take the amtBetTotal amount from player
             else {
                 total += amountToTake;
-                tempPlayers[i]->amtBetTotal -= amountToTake;
+                tempPlayers[i]->setAmtBetTotal(tempPlayers[i]->getAmtBetTotal() - amountToTake);
                 pot -= amountToTake;
             }
         }
         int amtPerPlayer = total / splitNumWays;
         //if more than one person splits the amt between them
         for (int i = 0; i < splitNumWays; i++) {
-            tempPlayers[i]->stackSize += amtPerPlayer;
+            tempPlayers[i]->setStackSize(tempPlayers[i]->getStackSize() + amtPerPlayer);
         }
         //get rid of players in front who can't make any more
-        while (!tempPlayers.empty() && (tempPlayers.front())->amtBetTotal == 0) {
+        while (!tempPlayers.empty() && (tempPlayers.front())->getAmtBetTotal() == 0) {
             tempPlayers.pop_front();
         }
     }
@@ -238,8 +216,8 @@ int table::highCardComparison(const vector<Card> &player1Cards, const vector<Car
         if (it1->getRankNum() < it2->getRankNum()) return -1;
         else if (it1->getRankNum() > it2->getRankNum()) return 1;
         ++counter;
-        ++it1;
-        ++it2;
+        --it1;
+        --it2;
     }
     return 0;
 }
@@ -247,14 +225,14 @@ int table::highCardComparison(const vector<Card> &player1Cards, const vector<Car
 void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
     //add players hand to board in new vec, then sort
     vector<Card> player1Cards = vector<Card>(board);
-    player1Cards.push_back(players[positionOfP1]->hand.first);
-    player1Cards.push_back(players[positionOfP1]->hand.second);
+    player1Cards.push_back(players[positionOfP1]->getHandFirst());
+    player1Cards.push_back(players[positionOfP1]->getHandSecond());
     sort(player1Cards.begin(), player1Cards.end());
     
     //add players hand to board in new vec, then sort
     vector<Card> player2Cards = vector<Card>(board);
-    player2Cards.push_back(players[positionOfP2]->hand.first);
-    player2Cards.push_back(players[positionOfP2]->hand.second);
+    player2Cards.push_back(players[positionOfP2]->getHandFirst());
+    player2Cards.push_back(players[positionOfP2]->getHandSecond());
     sort(player2Cards.begin(), player2Cards.end());
     
     int playerComp = 0;
@@ -271,17 +249,17 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
             playerComp = highCardComparison(player1Cards, player2Cards);
             if (playerComp == -1) {
                 //rankAfterHandFinishes[positionOfP2] += 10;
-                players[positionOfP2]->rankAfterHandFinishes += 10;
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 10);
             }
             else if (playerComp == 0) {
                 //rankAfterHandFinishes[positionOfP1] += 1;
                 //rankAfterHandFinishes[positionOfP2] += 1;
-                players[positionOfP1]->rankAfterHandFinishes += 1;
-                players[positionOfP2]->rankAfterHandFinishes += 1;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 1);
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 1);
             }
             else if (playerComp == 1) {
                 //rankAfterHandFinishes[positionOfP1] += 10;
-                players[positionOfP1]->rankAfterHandFinishes += 10;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 10);
             }
             else {
                 exit(1);
@@ -293,17 +271,17 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
             playerComp = highCardComparison(player1Cards, player2Cards);
             if (playerComp == -1) {
                 //rankAfterHandFinishes[positionOfP2] += 10;
-                players[positionOfP2]->rankAfterHandFinishes += 10;
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 10);
             }
             else if (playerComp == 0) {
                 //rankAfterHandFinishes[positionOfP1] += 1;
                 //rankAfterHandFinishes[positionOfP2] += 1;
-                players[positionOfP1]->rankAfterHandFinishes += 1;
-                players[positionOfP2]->rankAfterHandFinishes += 1;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 1);
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 1);
             }
             else if (playerComp == 1) {
                 //rankAfterHandFinishes[positionOfP1] += 10;
-                players[positionOfP1]->rankAfterHandFinishes += 10;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 10);
             }
             else {
                 exit(1);
@@ -334,11 +312,11 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
             }
             if (nextP1Pair > nextP2Pair) {
                 //rankAfterHandFinishes[positionOfP1] += 10;
-                players[positionOfP1]->rankAfterHandFinishes += 10;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 10);
             }
             else if (nextP2Pair > nextP1Pair) {
                 //rankAfterHandFinishes[positionOfP2] += 10;
-                players[positionOfP2]->rankAfterHandFinishes += 10;
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 10);
             }
             //down to 5th card high card
             else {
@@ -360,17 +338,17 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
                 }
                 if (highCardP1 > highCardP2) {
                     //rankAfterHandFinishes[positionOfP1] += 10;
-                    players[positionOfP1]->rankAfterHandFinishes += 10;
+                    players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 10);
                 }
                 else if (highCardP2 > highCardP1) {
                     //rankAfterHandFinishes[positionOfP2] += 10;
-                    players[positionOfP2]->rankAfterHandFinishes += 10;
+                    players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 10);
                 }
                 else {
                     //rankAfterHandFinishes[positionOfP1] += 1;
                     //rankAfterHandFinishes[positionOfP2] += 1;
-                    players[positionOfP1]->rankAfterHandFinishes += 1;
-                    players[positionOfP2]->rankAfterHandFinishes += 1;
+                    players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 1);
+                    players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 1);
                 }
             }
             break;
@@ -378,8 +356,8 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
         case 4:
             //rankAfterHandFinishes[positionOfP1] += 1;
             //rankAfterHandFinishes[positionOfP2] += 1;
-            players[positionOfP1]->rankAfterHandFinishes += 1;
-            players[positionOfP2]->rankAfterHandFinishes += 1;
+            players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 1);
+            players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 1);
             break;
             //full house. must check smaller pair
         case 6:
@@ -400,17 +378,17 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
             }
             if (firstP1Pair > firstP2Pair) {
                 //rankAfterHandFinishes[positionOfP1] += 10;
-                players[positionOfP1]->rankAfterHandFinishes += 10;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 10);
             }
             else if (firstP2Pair > firstP1Pair) {
                 //rankAfterHandFinishes[positionOfP2] += 10;
-                players[positionOfP2]->rankAfterHandFinishes += 10;
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 10);
             }
             else {
                 //rankAfterHandFinishes[positionOfP2] += 1;
                 //rankAfterHandFinishes[positionOfP1] += 1;
-                players[positionOfP1]->rankAfterHandFinishes += 1;
-                players[positionOfP2]->rankAfterHandFinishes += 1;
+                players[positionOfP1]->setRankAfterHandFinishes(players[positionOfP1]->getRankAfterHandFinishes() + 1);
+                players[positionOfP2]->setRankAfterHandFinishes(players[positionOfP2]->getRankAfterHandFinishes() + 1);
             }
             break;
         default:
@@ -424,12 +402,15 @@ void table::closerCompareOfHands(int positionOfP1, int positionOfP2) {
 void table::findWinner() {
     for (int i = 0; i < 10; i++) {
         if (inHand[i]) {
-            pair<int, int> handForRound = handEval(players[i]->hand, board);
+            Hand tempHand = Hand();
+            tempHand.first = players[i]->getHandFirst();
+            tempHand.second = players[i]->getHandSecond();
+            pair<int, int> handForRound = handEval(tempHand, board);
             handsThisRound[i] = handForRound;
         }
         //rankAfterHandFinishes[i] = 0;
         if (players[i]) {
-            players[i]->rankAfterHandFinishes = 0;
+            players[i]->setRankAfterHandFinishes(0);
         }
     }
     //sort-like algorithm to compare everyone in hand to everyone else
@@ -441,19 +422,19 @@ void table::findWinner() {
                 if (inHand[j]) {
                     if (handsThisRound[i].first > handsThisRound[j].first) {
                         //rankAfterHandFinishes[i] += 10;
-                        players[i]->rankAfterHandFinishes += 10;
+                        players[i]->setRankAfterHandFinishes(players[i]->getRankAfterHandFinishes() + 10);
                     }
                     else if (handsThisRound[j].first > handsThisRound[i].first) {
                         //rankAfterHandFinishes[j] += 10;
-                        players[j]->rankAfterHandFinishes += 10;
+                        players[j]->setRankAfterHandFinishes(players[j]->getRankAfterHandFinishes() + 10);
                     }
                     else if (handsThisRound[i].second > handsThisRound[j].second) {
                         //rankAfterHandFinishes[i] += 10;
-                        players[i]->rankAfterHandFinishes += 10;
+                        players[i]->setRankAfterHandFinishes(players[i]->getRankAfterHandFinishes() + 10);
                     }
                     else if (handsThisRound[j].second > handsThisRound[i].second) {
                         //rankAfterHandFinishes[j] += 10;
-                        players[j]->rankAfterHandFinishes += 10;
+                        players[j]->setRankAfterHandFinishes(players[j]->getRankAfterHandFinishes() + 10);
                     }
                     else {
                         closerCompareOfHands(i, j);
@@ -472,16 +453,16 @@ void table::chooseDealer() {
         if (players[i]) {
             inHand[i] = true;
             Card forDeal = dealerDeck.getCard();
-            players[i]->hand.first = forDeal;
-            cout << players[i]->name << " gets a " <<
+            players[i]->setHandFirst(forDeal);
+            cout << players[i]->getName() << " gets a " <<
             forDeal.getRank() << "." << endl;
-            if (players[i]->hand.first > maxCard) {
+            if (players[i]->getHandFirst() > maxCard) {
                 dealer = i;
-                maxCard = players[i]->hand.first;
+                maxCard = players[i]->getHandFirst();
             }
         }
     }
-    cout << players[dealer]->name << " deals." << endl << endl;
+    cout << players[dealer]->getName() << " deals." << endl << endl;
 }
 
 void table::addPlayerToTable(player *person) {
@@ -489,7 +470,7 @@ void table::addPlayerToTable(player *person) {
         if (!players[i]) {
             players[i] = person;
             ++numPlayers;
-            cout << "Added " << person->name << " to the table." << endl;
+            cout << "Added " << person->getName() << " to the table." << endl;
             return;
         }
     }
@@ -508,13 +489,13 @@ void table::dealCards() {
     Deck.resetDeck();
     for (int i = 0; i < 10; i++) {
         if (players[i]) {
-            players[i]->hand.first = Deck.getCard();
+            players[i]->setHandFirst(Deck.getCard());
             inHand[i] = true;
-            players[i]->amtBetTotal = 0;
+            players[i]->setAmtBetTotal(0);
         }
     }
     for (int i = 0; i < 10; i++) {
-        if (players[i]) players[i]->hand.second = Deck.getCard();
+        if (players[i]) players[i]->setHandSecond(Deck.getCard());
     }
 }
 
@@ -559,7 +540,7 @@ void table::nextDeal() {
 }
 
 void table::fold() {
-    cout << players[currentlyOn]->name << " folds." << endl << endl;
+    cout << players[currentlyOn]->getName() << " folds." << endl << endl;
     --numPlayersInHand;
     ++numPlayersFolded;
     inHand[currentlyOn] = false;
@@ -567,8 +548,7 @@ void table::fold() {
 
 string table::callDecision() {
     cout << "call, fold, or raise?" << endl;
-    string decision;
-    cin >> decision;
+    string decision = players[currentlyOn]->callFoldRaiseDecision();
     if (decision == "call") {
         return "call";
     }
@@ -588,7 +568,7 @@ string table::callDecision() {
 void table::allInOrFold() {
     cout << "call or fold?" << endl;
     string decision;
-    cin >> decision;
+    decision = players[currentlyOn]->allInOrFoldDecision();
     if (decision == "call") {
         allIn();
         return;
@@ -605,25 +585,26 @@ void table::allInOrFold() {
 
 void table::allIn() {
     --numPlayersInHand;
-    cout << players[currentlyOn]->name << " is all in for "
-    << players[currentlyOn]->stackSize << endl << endl;
-    pot += players[currentlyOn]->stackSize;
-    players[currentlyOn]->amtBetTotal += players[currentlyOn]->stackSize;
-    players[currentlyOn]->stackSize = 0;
-    if (players[currentlyOn]->amtBetTotal > maxBetTotal) {
-        maxBetTotal = players[currentlyOn]->amtBetTotal;
+    cout << players[currentlyOn]->getName() << " is all in for "
+    << players[currentlyOn]->getStackSize() << endl << endl;
+    pot += players[currentlyOn]->getStackSize();
+    players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getAmtBetTotal()
+                                         + players[currentlyOn]->getStackSize());
+    players[currentlyOn]->setStackSize(0);
+    if (players[currentlyOn]->getAmtBetTotal() > maxBetTotal) {
+        maxBetTotal = players[currentlyOn]->getAmtBetTotal();
     }
 }
 
 void table::raiseAmount() {
     assert(inHand[currentlyOn]);
-    assert(players[currentlyOn]->stackSize > 0);
-    cout << "Stacksize: " << players[currentlyOn]->stackSize << endl;
+    assert(players[currentlyOn]->getStackSize() > 0);
+    cout << "Stacksize: " << players[currentlyOn]->getStackSize() << endl;
     cout << "How much would you like to raise?" << endl;
     int betSize;
-    cin >> betSize;
+    betSize = players[currentlyOn]->raiseAmountDecision();
     //if the player decides to go all in on top
-    if ((maxBetTotal + betSize) >= players[currentlyOn]->stackSize) {
+    if ((maxBetTotal + betSize) >= players[currentlyOn]->getStackSize()) {
         allIn();
         return;
     }
@@ -633,12 +614,12 @@ void table::raiseAmount() {
         return raiseAmount();
     }
     //when the player bets min or above and less than all in
-    else if (betSize >= initialBetThisRound && betSize < players[currentlyOn]->stackSize) {
-        cout << players[currentlyOn]->name << " raises " << betSize << endl << endl;
-        pot += maxBetTotal - players[currentlyOn]->amtBetTotal + betSize;
-        players[currentlyOn]->stackSize -= maxBetTotal - players[currentlyOn]->amtBetTotal + betSize;
-        players[currentlyOn]->amtBetTotal = maxBetTotal + betSize;
-        maxBetTotal = players[currentlyOn]->amtBetTotal;
+    else if (betSize >= initialBetThisRound && betSize < players[currentlyOn]->getStackSize()) {
+        cout << players[currentlyOn]->getName() << " raises " << betSize << endl << endl;
+        pot += maxBetTotal - players[currentlyOn]->getAmtBetTotal() + betSize;
+        players[currentlyOn]->setStackSize(players[currentlyOn]->getStackSize() - maxBetTotal - players[currentlyOn]->getAmtBetTotal() - betSize);
+        players[currentlyOn]->setAmtBetTotal(maxBetTotal + betSize);
+        maxBetTotal = players[currentlyOn]->getAmtBetTotal();
     }
     else {
         assert(false);
@@ -646,21 +627,21 @@ void table::raiseAmount() {
 }
 
 void table::readPlayerHand() {
-    cout << players[currentlyOn]->name << "'s hand: " << endl;
-    cout << players[currentlyOn]->hand.first.getRank() << " of "
-    << players[currentlyOn]->hand.first.getSuit() << endl;
-    cout << players[currentlyOn]->hand.second.getRank() << " of "
-    << players[currentlyOn]->hand.second.getSuit() << endl;
-    cout << "Stack size: " << players[currentlyOn]->stackSize << endl;
+    cout << players[currentlyOn]->getName() << "'s hand: " << endl;
+    cout << players[currentlyOn]->getHandFirst().getRank() << " of "
+    << players[currentlyOn]->getHandFirst().getSuit() << endl;
+    cout << players[currentlyOn]->getHandSecond().getRank() << " of "
+    << players[currentlyOn]->getHandSecond().getSuit() << endl;
+    cout << "Stack size: " << players[currentlyOn]->getStackSize() << endl;
     cout << "Pot: " << pot << endl << endl;
 }
 
 void table::checkFoldOrBet() {
     cout << "check, fold, or bet?" << endl;
     string decision;
-    cin >> decision;
+    decision = players[currentlyOn]->checkFoldOrBetDecision();
     if (decision == "check") {
-        cout << players[currentlyOn]->name << " checks." << endl << endl;
+        cout << players[currentlyOn]->getName() << " checks." << endl << endl;
         return;
     }
     else if (decision == "fold") {
@@ -670,9 +651,9 @@ void table::checkFoldOrBet() {
     else if (decision == "bet") {
         cout << "How much?" << endl;
         int betAmount = 0;
-        cin >> betAmount;
+        betAmount = players[currentlyOn]->getBetAmount();
         cout << endl;
-        if (betAmount >= players[currentlyOn]->stackSize) {
+        if (betAmount >= players[currentlyOn]->getStackSize()) {
             betInRound = true;
             initialBetThisRound = betAmount;
             allIn();
@@ -688,8 +669,8 @@ void table::checkFoldOrBet() {
             initialBetThisRound = betAmount;
             pot += betAmount;
             maxBetTotal += betAmount;
-            players[currentlyOn]->amtBetTotal += betAmount;
-            players[currentlyOn]->stackSize -= betAmount;
+            players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getAmtBetTotal() + betAmount);
+            players[currentlyOn]->setStackSize(players[currentlyOn]->getStackSize() - betAmount);
             return;
         }
     }
@@ -703,7 +684,7 @@ void table::bettingRound() {
     //num players in hand is greater than 1 and either there hasn't
     //been a bet yet or the maxbettotal > amtbettotal of player
     int startingActionPlayer = currentlyOn;
-    while (((players[currentlyOn]->amtBetTotal < maxBetTotal)
+    while (((players[currentlyOn]->getAmtBetTotal() < maxBetTotal)
             || (!betInRound)) && (numPlayersInHand >= 1)) {
         //change the starting action player if the player folds to know
         //when to end when it gets back around
@@ -711,23 +692,23 @@ void table::bettingRound() {
             startingActionPlayer = currentlyOn;
         }
         //if the players in the hand and not all in
-        if (inHand[currentlyOn] && players[currentlyOn]->stackSize != 0) {
+        if (inHand[currentlyOn] && players[currentlyOn]->getStackSize() != 0) {
             readPlayerHand();
             //if the player needs to call someone's bet or the blind
-            if (maxBetTotal > players[currentlyOn]->amtBetTotal) {
-                int toCall = maxBetTotal - players[currentlyOn]->amtBetTotal;
-                cout << players[currentlyOn]->name << " to call " << toCall
+            if (maxBetTotal > players[currentlyOn]->getAmtBetTotal()) {
+                int toCall = maxBetTotal - players[currentlyOn]->getAmtBetTotal();
+                cout << players[currentlyOn]->getName() << " to call " << toCall
                 << endl;
                 string decision;
                 //if the player will not be all in if they call.
                 //fold taken care of in callDecision()
-                if (toCall < players[currentlyOn]->stackSize) {
+                if (toCall < players[currentlyOn]->getStackSize()) {
                     decision = callDecision();
                     if (decision == "call") {
-                        cout << players[currentlyOn]->name << " calls." << endl << endl;
+                        cout << players[currentlyOn]->getName() << " calls." << endl << endl;
                         pot += toCall;
-                        players[currentlyOn]->stackSize -= toCall;
-                        players[currentlyOn]->amtBetTotal += toCall;
+                        players[currentlyOn]->setStackSize(players[currentlyOn]->getStackSize() - toCall);
+                        players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getAmtBetTotal() + toCall);
                     }
                     else if (decision == "raise") {
                         raiseAmount();
@@ -738,7 +719,7 @@ void table::bettingRound() {
                     }
                 }
                 //if the player will be all in if they call
-                else if (toCall >= players[currentlyOn]->stackSize) {
+                else if (toCall >= players[currentlyOn]->getStackSize()) {
                     allInOrFold();
                 }
             }
@@ -761,37 +742,37 @@ void table::preFlopActivity() {
     betInRound = true;
     next();
     //if sidepot is needed for SB
-    if (players[currentlyOn]->stackSize < smallBlind) {
-        pot += players[currentlyOn]->stackSize;
-        players[currentlyOn]->amtBetTotal = players[currentlyOn]->stackSize;
-        players[currentlyOn]->stackSize = 0;
+    if (players[currentlyOn]->getStackSize() < smallBlind) {
+        pot += players[currentlyOn]->getStackSize();
+        players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getStackSize());
+        players[currentlyOn]->setStackSize(0);
         maxBetTotal = pot;
         cout << "sidepot small blind" << endl;
     }
     else {
-        players[currentlyOn]->stackSize -= smallBlind;
-        players[currentlyOn]->amtBetTotal = smallBlind;
+        players[currentlyOn]->setStackSize(players[currentlyOn]->getStackSize() - smallBlind);
+        players[currentlyOn]->setAmtBetTotal(smallBlind);
         maxBetTotal = smallBlind;
         pot += smallBlind;
-        cout << players[currentlyOn]->name << " posts the small blind." << endl;
+        cout << players[currentlyOn]->getName() << " posts the small blind." << endl;
     }
     next();
     //if sidepot is needed for BB
-    if (players[currentlyOn]->stackSize < bigBlind) {
-        pot += players[currentlyOn]->stackSize;
-        players[currentlyOn]->amtBetTotal = players[currentlyOn]->stackSize;
-        if (players[currentlyOn]->stackSize > maxBetTotal) {
-            maxBetTotal = players[currentlyOn]->stackSize;
+    if (players[currentlyOn]->getStackSize() < bigBlind) {
+        pot += players[currentlyOn]->getStackSize();
+        players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getStackSize());
+        if (players[currentlyOn]->getStackSize() > maxBetTotal) {
+            maxBetTotal = players[currentlyOn]->getStackSize();
         }
-        players[currentlyOn]->stackSize = 0;
+        players[currentlyOn]->setStackSize(0);
         cout << "sidepot big blind" << endl;
     }
     else {
-        players[currentlyOn]->stackSize -= bigBlind;
-        players[currentlyOn]->amtBetTotal += bigBlind;
+        players[currentlyOn]->setStackSize(players[currentlyOn]->getStackSize() - bigBlind);
+        players[currentlyOn]->setAmtBetTotal(players[currentlyOn]->getAmtBetTotal() + bigBlind);
         pot += bigBlind;
         maxBetTotal = bigBlind;
-        cout << players[currentlyOn]->name << " posts the big blind." << endl << endl;
+        cout << players[currentlyOn]->getName() << " posts the big blind." << endl << endl;
     }
     initialBetThisRound = bigBlind;
     next();
@@ -846,13 +827,13 @@ void table::river() {
     }
 }
 bool playerRankComparator::operator()(const player* player1, const player* player2) {
-    if (player1->rankAfterHandFinishes > player2->rankAfterHandFinishes) {
+    if (player1->getRankAfterHandFinishes() > player2->getRankAfterHandFinishes()) {
         return true;
     }
-    else if (player2->rankAfterHandFinishes > player1->rankAfterHandFinishes) {
+    else if (player2->getRankAfterHandFinishes() > player1->getRankAfterHandFinishes()) {
         return false;
     }
-    else if (player1->amtBetTotal < player2->amtBetTotal) {
+    else if (player1->getAmtBetTotal() < player2->getAmtBetTotal()) {
         return true;
     }
     else {
@@ -1078,17 +1059,3 @@ pair<int, int> handEval(const Hand &hand, vector<Card> board) {
     return bestHand;
 }
 
-int main(int argc, const char **argv) {
-    int playerNameCounter = 0;
-    table table1 = table();
-    vector<player*> allPlayers;
-    while(table1.openSeatAtTable()) {
-        player* p1 =  new player(to_string(playerNameCounter));
-        allPlayers.push_back(p1);
-        table1.addPlayerToTable(p1);
-        ++playerNameCounter;
-    }
-    table1.playTable();
-    endGame(allPlayers);
-    return 0;
-}

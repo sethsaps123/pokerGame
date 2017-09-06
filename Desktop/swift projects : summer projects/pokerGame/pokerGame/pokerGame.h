@@ -17,51 +17,13 @@
 #include <cassert>
 #include <unordered_map>
 #include <queue>
+#include "player.h"
+#include "hand.h"
 
 using namespace std;
 
-const map<string, int> cardName = {
-    {"two", 1},
-    {"three", 2},
-    {"four", 3},
-    {"five", 4},
-    {"six", 5},
-    {"seven", 6},
-    {"eight", 7},
-    {"nine", 8},
-    {"ten", 9},
-    {"jack", 10},
-    {"queen", 11},
-    {"king", 12},
-    {"ace", 13}
-};
 
-const string ranksOfCards[13] = {"two", "three", "four", "five", "six",
-    "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"};
 
-const string suits[4] = {"clubs", "spades", "hearts", "diamonds"};
-
-class Card {
-public:
-    Card();
-    
-    Card(string suit_, string rank_);
-    
-    string getSuit() const;
-    
-    string getRank() const;
-    
-    int getRankNum() const;
-    
-    
-    
-private:
-    string suit;
-    string rank;
-};
-
-//to overload << to write out a card
-ostream& operator <<(ostream& os, const Card &card);
 
 class deckOfCards {
 public:
@@ -73,24 +35,6 @@ public:
     
 private:
     deque<Card> deck;
-};
-
-struct Hand {
-    Card first;
-    Card second;
-};
-
-class player {
-public:
-    player();
-    
-    player(string name_);
-    
-    string name;
-    int stackSize;
-    Hand hand;
-    int amtBetTotal;
-    int rankAfterHandFinishes;
 };
 
 bool operator >(const Card &card1, const Card &card2);
@@ -166,14 +110,11 @@ private:
     int pot;
     int maxBetTotal;
     bool betInRound;
-    //vector of sidepots with pairs <amount, <position of people in sidepot>>
-    vector<pair<int, vector<int>>> sidepots;
     int smallBlind;
     int bigBlind;
     int initialBetThisRound;
     vector<Card> board;
     pair<int, int> handsThisRound[10];
-    //int rankAfterHandFinishes[10];
 };
 
 struct playerRankComparator {
