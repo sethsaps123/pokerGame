@@ -35,12 +35,6 @@ Card deckOfCards::getCard() {
     return chosen;
 }
 
-//made player polymorphic so got rid of this
-/*
-player::player() : name("unkown"), stackSize(1500), amtBetTotal(0){ }
-player::player(string name_) : name(name_), stackSize(1500), amtBetTotal(0) {}
- */
-
 bool operator >(const Card &card1, const Card &card2) {
     if ((cardName.find(card1.getRank())->second >
          (cardName.find(card2.getRank())->second))) {
