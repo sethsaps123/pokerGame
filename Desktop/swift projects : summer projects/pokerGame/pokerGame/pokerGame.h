@@ -115,6 +115,7 @@ private:
     int initialBetThisRound;
     vector<Card> board;
     pair<int, int> handsThisRound[10];
+    int round;
 };
 
 struct playerRankComparator {
@@ -139,8 +140,8 @@ struct straightFlushCompHelper {
 //first int returns rank of hand, second int is rank of card relative to that hand rank
 //0 is high card, 1 is pair, 2 is 2 pair, 3 is trips
 //4 is straight, 5 is flush, 6 is boat, 7 is quads, 8 is straight flush
-pair<int, int> handEval(const Hand &hand, vector<Card> board);
-
+pair<int, int> handEval(const Hand &hand, vector<Card> &board);
+pair<int, int> botHandEval(const Hand &hand, vector<Card> &board, bool withHand);
 const static deckOfCards freshDeck = deckOfCards();
 
 #endif

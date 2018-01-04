@@ -34,3 +34,4 @@ ostream& operator <<(ostream& os, const Card &card) {
     os << card.getRank() << " of " << card.getSuit();
     return os;
 }
+

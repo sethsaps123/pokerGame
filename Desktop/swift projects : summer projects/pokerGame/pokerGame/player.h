@@ -16,16 +16,16 @@
 class player {
 public:
     //gets player decision when asked to call fold or raise
-    virtual std::string callFoldRaiseDecision() const = 0;
+    virtual std::string callFoldRaiseDecision(std::pair<int, int> &rankWithoutHand, std::pair<int, int> &rankWithHand, int round) const = 0;
     
     //gets player decision when asked all in or fold
-    virtual std::string allInOrFoldDecision() const = 0;
+    virtual std::string allInOrFoldDecision(std::pair<int, int> &rankWithoutHand, std::pair<int, int> &rankWithHand, int round) const = 0;
     
     //gets the amount a player wishes to raise
-    virtual int raiseAmountDecision() const = 0;
+    virtual int raiseAmountDecision(std::pair<int, int> &rankWithoutHand, std::pair<int, int> &rankWithHand, int round) const = 0;
     
     //gets the decision when asked to check fold or bet
-    virtual std::string checkFoldOrBetDecision() const = 0;
+    virtual std::string checkFoldOrBetDecision(std::pair<int, int> &rankWithoutHand, std::pair<int, int> &rankWithHand, int round) const = 0;
     
     //gets decision of how much when player decides to bet
     virtual int getBetAmount() const = 0;
@@ -52,10 +52,14 @@ public:
     
     virtual void setRankAfterHandFinishes(int rank) = 0;
     
+    virtual Hand getHand() const = 0;
+    
     virtual ~player() {}
     
 };
 
 player * playerFactory(const std::string &name, const std::string &strategy);
+
+
 
 #endif /* player_h */
