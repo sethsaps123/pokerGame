@@ -1,0 +1,10 @@
+version: "Apple Swift version 4.0.3 (swiftlang-900.0.74.1 clang-900.0.39.2)"
+options: "39e5da6f8884821b3a7e15d498770ed2"
+build_time: [1520106304, 700585000]
+inputs:
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/FeedTableView.swift": !dirty [1519683780, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/AppDelegate.swift": !dirty [1519862803, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/NewPostViewController.swift": !dirty [1520034048, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/MainViewController.swift": !dirty [1520052068, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/Networking.swift": !dirty [1520052330, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/yakChat/PostTableViewCell.swift": !dirty [1520050059, 0]

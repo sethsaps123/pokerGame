@@ -1,0 +1,9 @@
+version: "Apple Swift version 4.0.3 (swiftlang-900.0.74.1 clang-900.0.39.2)"
+options: "574ad95b33a6b67edbeada913d19c5f3"
+build_time: [1520106297, 744036000]
+inputs:
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/Pods/SwiftHTTP/Source/HTTPSecurity.swift": [1519680961, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/Pods/SwiftHTTP/Source/Operation.swift": [1519680961, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/Pods/SwiftHTTP/Source/Request.swift": [1519680961, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/Pods/SwiftHTTP/Source/StatusCode.swift": [1519680961, 0]
+  "/Users/sethsaps/Desktop/swift projects : summer projects/yakChat/Pods/SwiftHTTP/Source/Upload.swift": [1519680961, 0]

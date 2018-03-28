@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F4EA2E42069D46300958457 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EA2D72069D46100958457 /* CommentViewController.swift */; };
+		2F4EA2E52069D46300958457 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EA2D82069D46200958457 /* Networking.swift */; };
+		2F4EA2E72069D46300958457 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EA2DA2069D46200958457 /* PostTableViewCell.swift */; };
+		2F4EA2E82069D46300958457 /* FeedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EA2DB2069D46200958457 /* FeedTableView.swift */; };
+		2F616E3D2049B05C008A385E /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F616E3C2049B05C008A385E /* NewPostViewController.swift */; };
+		2FB12EEF2069D82F0059E767 /* CommentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB12EEC2069D7020059E767 /* CommentTableView.swift */; };
+		2FCA95A82044B48700F89F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCA95A72044B48700F89F7F /* AppDelegate.swift */; };
+		2FCA95AD2044B48700F89F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FCA95AB2044B48700F89F7F /* Main.storyboard */; };
+		2FCA95B02044B48700F89F7F /* yakChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FCA95AE2044B48700F89F7F /* yakChat.xcdatamodeld */; };
+		2FCA95B22044B48700F89F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FCA95B12044B48700F89F7F /* Assets.xcassets */; };
+		2FCA95B52044B48700F89F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FCA95B32044B48700F89F7F /* LaunchScreen.storyboard */; };
+		2FCA95C12044BCF500F89F7F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCA95C02044BCF500F89F7F /* MainViewController.swift */; };
+		2FCA95C62044D2BF00F89F7F /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCA95C72044D2BF00F89F7F /* SwiftHTTP.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		83D8B1D85C0E434726A5E510 /* Pods_yakChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ABD6DF8AD01A29670F46984 /* Pods_yakChat.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2F4EA2D72069D46100958457 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		2F4EA2D82069D46200958457 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		2F4EA2DA2069D46200958457 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		2F4EA2DB2069D46200958457 /* FeedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableView.swift; sourceTree = "<group>"; };
+		2F616E3C2049B05C008A385E /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		2FB12EEC2069D7020059E767 /* CommentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableView.swift; sourceTree = "<group>"; };
+		2FCA95A42044B48700F89F7F /* yakChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yakChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FCA95A72044B48700F89F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2FCA95AC2044B48700F89F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2FCA95AF2044B48700F89F7F /* yakChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = yakChat.xcdatamodel; sourceTree = "<group>"; };
+		2FCA95B12044B48700F89F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2FCA95B42044B48700F89F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2FCA95B62044B48700F89F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FCA95C02044BCF500F89F7F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2FCA95C72044D2BF00F89F7F /* SwiftHTTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftHTTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ABD6DF8AD01A29670F46984 /* Pods_yakChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yakChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC9B94949075340787BB59BA /* Pods-yakChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yakChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yakChat/Pods-yakChat.debug.xcconfig"; sourceTree = "<group>"; };
+		E3DF309C9138F90A69A51363 /* Pods-yakChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yakChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-yakChat/Pods-yakChat.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FCA95A12044B48700F89F7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FCA95C62044D2BF00F89F7F /* SwiftHTTP.framework in Frameworks */,
+				83D8B1D85C0E434726A5E510 /* Pods_yakChat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2FCA959B2044B48700F89F7F = {
+			isa = PBXGroup;
+			children = (
+				2FCA95A62044B48700F89F7F /* yakChat */,
+				2FCA95A52044B48700F89F7F /* Products */,
+				CCF7FE119489731805E3838E /* Pods */,
+				981F7C5970B322E6F7A9ED61 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2FCA95A52044B48700F89F7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FCA95A42044B48700F89F7F /* yakChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2FCA95A62044B48700F89F7F /* yakChat */ = {
+			isa = PBXGroup;
+			children = (
+				2FCA95A72044B48700F89F7F /* AppDelegate.swift */,
+				2FB12EEC2069D7020059E767 /* CommentTableView.swift */,
+				2F4EA2DB2069D46200958457 /* FeedTableView.swift */,
+				2F4EA2D72069D46100958457 /* CommentViewController.swift */,
+				2F4EA2D82069D46200958457 /* Networking.swift */,
+				2F4EA2DA2069D46200958457 /* PostTableViewCell.swift */,
+				2FCA95AB2044B48700F89F7F /* Main.storyboard */,
+				2F616E3C2049B05C008A385E /* NewPostViewController.swift */,
+				2FCA95C02044BCF500F89F7F /* MainViewController.swift */,
+				2FCA95B12044B48700F89F7F /* Assets.xcassets */,
+				2FCA95B32044B48700F89F7F /* LaunchScreen.storyboard */,
+				2FCA95B62044B48700F89F7F /* Info.plist */,
+				2FCA95AE2044B48700F89F7F /* yakChat.xcdatamodeld */,
+			);
+			path = yakChat;
+			sourceTree = "<group>";
+		};
+		981F7C5970B322E6F7A9ED61 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2FCA95C72044D2BF00F89F7F /* SwiftHTTP.framework */,
+				8ABD6DF8AD01A29670F46984 /* Pods_yakChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCF7FE119489731805E3838E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AC9B94949075340787BB59BA /* Pods-yakChat.debug.xcconfig */,
+				E3DF309C9138F90A69A51363 /* Pods-yakChat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2FCA95A32044B48700F89F7F /* yakChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FCA95B92044B48700F89F7F /* Build configuration list for PBXNativeTarget "yakChat" */;
+			buildPhases = (
+				D6D77204D6F45927A5F23D22 /* [CP] Check Pods Manifest.lock */,
+				2FCA95A02044B48700F89F7F /* Sources */,
+				2FCA95A12044B48700F89F7F /* Frameworks */,
+				2FCA95A22044B48700F89F7F /* Resources */,
+				1003C84E5BFCF22DF69763DF /* [CP] Embed Pods Frameworks */,
+				AF247BC55CD5EEB97587749D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yakChat;
+			productName = yakChat;
+			productReference = 2FCA95A42044B48700F89F7F /* yakChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2FCA959C2044B48700F89F7F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Seth Saperstein";
+				TargetAttributes = {
+					2FCA95A32044B48700F89F7F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2FCA959F2044B48700F89F7F /* Build configuration list for PBXProject "yakChat" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2FCA959B2044B48700F89F7F;
+			productRefGroup = 2FCA95A52044B48700F89F7F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FCA95A32044B48700F89F7F /* yakChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FCA95A22044B48700F89F7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FCA95B52044B48700F89F7F /* LaunchScreen.storyboard in Resources */,
+				2FCA95B22044B48700F89F7F /* Assets.xcassets in Resources */,
+				2FCA95AD2044B48700F89F7F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1003C84E5BFCF22DF69763DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-yakChat/Pods-yakChat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftHTTP/SwiftHTTP.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHTTP.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yakChat/Pods-yakChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF247BC55CD5EEB97587749D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-yakChat/Pods-yakChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6D77204D6F45927A5F23D22 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-yakChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FCA95A02044B48700F89F7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F4EA2E42069D46300958457 /* CommentViewController.swift in Sources */,
+				2FB12EEF2069D82F0059E767 /* CommentTableView.swift in Sources */,
+				2F4EA2E52069D46300958457 /* Networking.swift in Sources */,
+				2FCA95B02044B48700F89F7F /* yakChat.xcdatamodeld in Sources */,
+				2FCA95A82044B48700F89F7F /* AppDelegate.swift in Sources */,
+				2F616E3D2049B05C008A385E /* NewPostViewController.swift in Sources */,
+				2FCA95C12044BCF500F89F7F /* MainViewController.swift in Sources */,
+				2F4EA2E82069D46300958457 /* FeedTableView.swift in Sources */,
+				2F4EA2E72069D46300958457 /* PostTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2FCA95AB2044B48700F89F7F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FCA95AC2044B48700F89F7F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2FCA95B32044B48700F89F7F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FCA95B42044B48700F89F7F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2FCA95B72044B48700F89F7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2FCA95B82044B48700F89F7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2FCA95BA2044B48700F89F7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC9B94949075340787BB59BA /* Pods-yakChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H749SUR7RN;
+				INFOPLIST_FILE = yakChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.sethsaps.yakChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2FCA95BB2044B48700F89F7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3DF309C9138F90A69A51363 /* Pods-yakChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H749SUR7RN;
+				INFOPLIST_FILE = yakChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.sethsaps.yakChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FCA959F2044B48700F89F7F /* Build configuration list for PBXProject "yakChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FCA95B72044B48700F89F7F /* Debug */,
+				2FCA95B82044B48700F89F7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2FCA95B92044B48700F89F7F /* Build configuration list for PBXNativeTarget "yakChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FCA95BA2044B48700F89F7F /* Debug */,
+				2FCA95BB2044B48700F89F7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2FCA95AE2044B48700F89F7F /* yakChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2FCA95AF2044B48700F89F7F /* yakChat.xcdatamodel */,
+			);
+			currentVersion = 2FCA95AF2044B48700F89F7F /* yakChat.xcdatamodel */;
+			path = yakChat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 2FCA959C2044B48700F89F7F /* Project object */;
+}
